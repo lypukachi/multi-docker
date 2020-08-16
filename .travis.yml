@@ -3,10 +3,10 @@ services:
   - docker
 
 before_install:
-  - docker built tag lypukachi/react-test file ./client/Dockerfile.dev ./client
+  - docker build -t lypukachi/docker-react -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run lypukachi/react-test npm test --  --coverage
+  - docker run -e CI=true lypukachi/react-test npm run test --  --coverage
 
 after_sucess:
   - docker built -t lypukachi/multi-client ./client
