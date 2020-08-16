@@ -1,0 +1,26 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker built -t lypukachi/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run lypukachi/react-test npm test --  --coverage
+
+after_sucess:
+  - docker built -t lypukachi/multi-client ./client
+  - docker built -t lypukachi/multi-nginx ./nginx
+  - docker built -t lypukachi/multi-server ./server
+  - docker built -t lypukachi/multi-worker ./worker
+
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push lypukachi/multi-client
+  - docker push lypukachi/multi-nginx
+  - docker push lypukachi/multi-server
+  - docker push lypukachi/multi-worker
+
+
+
