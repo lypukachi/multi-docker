@@ -7,7 +7,7 @@ before_install:
   - docker build -t lypukachi/docker-react -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true lypukachi/react-test npm test
+  - docker run -e CI=true lypukachi/docker-react npm test
 
 after_sucess:
   - docker built -t lypukachi/multi-client ./client
