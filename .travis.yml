@@ -10,10 +10,10 @@ script:
   - docker run -e CI=true lypukachi/docker-react npm test
 
 after_sucess:
-  - docker built -t lypukachi/multi-client ./client
-  - docker built -t lypukachi/multi-nginx ./nginx
-  - docker built -t lypukachi/multi-server ./server
-  - docker built -t lypukachi/multi-worker ./worker
+  - docker build -t lypukachi/multi-client ./client
+  - docker build -t lypukachi/multi-nginx ./nginx
+  - docker build -t lypukachi/multi-server ./server
+  - docker build -t lypukachi/multi-worker ./worker
 
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | login -u "$DOCKER_ID" --password-stdin
